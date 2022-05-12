@@ -11,7 +11,6 @@ const InfoCard = ({ img, cardTitle, description, bgClass }) => {
       <div class="card-body">
         <h2 class="card-title">{cardTitle}</h2>
         <p>{description}</p>
-        <div class="card-actions justify-end"></div>
       </div>
     </div>
   );
