@@ -9,13 +9,13 @@ import Treatment from "./Treatment";
 
 const Services = () => {
   return (
-    <div className="my-12">
+    <div className="my-20 px-12">
       <h2 className="my-12">
         <span className="text-xl text-secondary font-bold">OUR SERVICES</span>
         <br />
         <span className="text-3xl">Services We Provide</span>
       </h2>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 px-12">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         <ServiceCard img={fluoride} title="Fluoride Treatment"></ServiceCard>
         <ServiceCard img={cavity} title="Cavity Filling"></ServiceCard>
         <ServiceCard img={whitening} title="Teeth Whitening"></ServiceCard>

@@ -1,19 +1,24 @@
 import React from "react";
 import chair from "../../assets/images/chair.png";
+import bg from "../../assets/images/bg.png";
+import Button from "../Shared/Button";
 const Banner = () => {
   return (
-    <div class="hero min-h-screen px-12">
-      <div class="hero-content flex-col lg:flex-row-reverse">
-        <img src={chair} class="max-w-sm rounded-lg shadow-2xl" alt="" />
+    <div
+      style={{
+        background: `url(${bg})`,
+      }}
+      className="hero min-h-screen px-12 my-12"
+    >
+      <div className="hero-content flex-col lg:flex-row-reverse">
+        <img src={chair} className="max-w-sm rounded-lg shadow-2xl" alt="" />
         <div>
-          <h1 class="text-5xl font-bold">Your New Smile Starts Here</h1>
-          <p class="py-6">
+          <h1 className="text-5xl font-bold">Your New Smile Starts Here</h1>
+          <p className="py-6">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem
             expedita pariatur repellendus enim quisquam, itaque adipisci.
           </p>
-          <button class="btn btn-primary text-white uppercase font-bold bg-gradient-to-r from-secondary to-primary">
-            Get Started
-          </button>
+          <Button>Get Started</Button>
         </div>
       </div>
     </div>
