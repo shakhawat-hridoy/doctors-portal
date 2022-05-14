@@ -9,7 +9,12 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
 
     const slot = event.target.slot.value;
     console.log(_id, name, slot);
+
+    //to close the modal automatically
     setTreatment(null);
+    //to close the modal automatically
+
+    //additional design for exploring new thing
     alert(`Your appointment for ${name} has been booked`);
   };
 

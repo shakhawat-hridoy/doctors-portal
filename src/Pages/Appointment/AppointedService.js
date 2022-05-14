@@ -25,7 +25,7 @@ const AppointedService = ({ service, setTreatment }) => {
               setTreatment(service);
             }}
             disabled={service.slots.length === 0}
-            className="btn btn-primary text-white uppercase font-bold bg-gradient-to-r from-secondary to-primary"
+            className="btn btn-sm border-0 text-white uppercase font-bold bg-gradient-to-r from-secondary to-primary"
           >
             Book Appointment
           </label>
