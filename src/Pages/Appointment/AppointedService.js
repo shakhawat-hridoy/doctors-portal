@@ -3,9 +3,9 @@ import React from "react";
 
 const AppointedService = ({ service, setTreatment }) => {
   return (
-    <div class="card bg-base-100 lg:max-w-lg shadow-xl">
-      <div class="card-body items-center text-center">
-        <h2 class="card-title text-secondary">{service.name}</h2>
+    <div className="card bg-base-100 lg:max-w-lg shadow-xl">
+      <div className="card-body items-center text-center">
+        <h2 className="card-title text-secondary">{service.name}</h2>
         <p>
           {service.slots.length ? (
             <span>{service.slots[0]}</span>
@@ -17,7 +17,7 @@ const AppointedService = ({ service, setTreatment }) => {
           {service.slots.length} {service.slots.length > 1 ? "spaces" : "space"}{" "}
           available
         </p>
-        <div class="card-actions">
+        <div className="card-actions">
           {/* special label button for openning modal. Otherwise we would use normal button as always. */}
           <label
             for="booking-modal"
