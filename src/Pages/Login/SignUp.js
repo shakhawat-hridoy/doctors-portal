@@ -1,20 +1,29 @@
 import React from "react";
-import auth from "../../../firebase.init";
-
 import {
+  useCreateUserWithEmailAndPassword,
   useSignInWithEmailAndPassword,
   useSignInWithGoogle,
+  useUpdateProfile,
 } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
-import Loading from "../../Shared/Loading";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import auth from "../../firebase.init";
+import Loading from "../Shared/Loading";
 
-const Login = () => {
+const SignUp = () => {
   const [signInWithGoogle, googleUser, googleLoading, googleError] =
     useSignInWithGoogle(auth);
 
-  const [signInWithEmailAndPassword, emailUser, emailLoading, emailError] =
-    useSignInWithEmailAndPassword(auth);
+  const [
+    createUserWithEmailAndPassword,
+    signUpUser,
+    signUpLoading,
+    signUpError,
+  ] = useCreateUserWithEmailAndPassword(auth);
+
+  const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+
+  const navigate = useNavigate();
 
   // for react hook form
   const {
@@ -24,38 +33,67 @@ const Login = () => {
   } = useForm();
   // for react hook form
 
-  let signInError;
+  let signUpErrorMessage;
 
-  if (emailLoading || googleLoading) {
+  if (signUpLoading || googleLoading || updating) {
     return <Loading></Loading>;
   }
 
-  if (googleError || emailError) {
-    signInError = (
+  if (googleError || signUpError || updateError) {
+    signUpError = (
       <p className="text-red-600">
-        <small>{googleError?.message || emailError?.message}</small>
+        <small>
+          {googleError?.message || signUpError?.message || updateError.message}
+        </small>
       </p>
     );
   }
 
-  if (emailUser || googleUser) {
-    console.log(emailUser || googleUser);
+  if (signUpUser || googleUser) {
+    console.log(signUpUser || googleUser);
   }
 
-  const onSubmit = (data) => {
-    console.log(data);
-    signInWithEmailAndPassword(data.email, data.password);
-  };
+  const onSubmit = async (data) => {
+    await createUserWithEmailAndPassword(data.email, data.password);
 
+    await updateProfile({ displayName: data.name });
+
+    console.log("profile updated");
+    navigate("/appointment");
+  };
   return (
-    // to keep a card exactly at the middle of any page
     <div className="flex justify-center items-center h-screen p-5">
       <div className="card lg:max-w-lg text-primary-content shadow-lg p-5 ">
         <div className="card-body">
-          <h2 className="text-center text-2xl font-bold">Login</h2>
+          <h2 className="text-center text-2xl font-bold">Sign Up</h2>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)}>
+          {/* name */}
+          <div className="form-control w-full max-w-xs">
+            <label className="label">
+              <span className="label-text">Name</span>
+            </label>
+            <input
+              type="text"
+              placeholder="Your Name"
+              className="input input-bordered w-full max-w-xs"
+              {...register("name", {
+                required: {
+                  value: true,
+                  message: "Name is Required",
+                },
+              })}
+            />
+            <label className="label">
+              {errors.name?.type === "required" && (
+                <span className="label-text-alt text-red-500">
+                  {errors.name.message}
+                </span>
+              )}
+            </label>
+          </div>
+          {/* name */}
           <div className="form-control w-full max-w-xs">
             <label className="label">
               <span className="label-text">Email</span>
@@ -121,20 +159,20 @@ const Login = () => {
             </label>
           </div>
 
-          {signInError}
+          {signUpError}
 
           <input
             className="btn w-full max-w-xs text-white"
             type="submit"
-            value="Login"
+            value="Sign Up"
           />
         </form>
 
         <p className="my-4">
           <small>
-            New to Doctor's Portal?{" "}
+            Already have an account?{" "}
             <Link className="text-primary" to="/signup">
-              Create New Account
+              Please Login
             </Link>
           </small>
         </p>
@@ -151,4 +189,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
